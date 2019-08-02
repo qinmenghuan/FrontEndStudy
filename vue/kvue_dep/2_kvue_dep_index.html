@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="kvue_dep.js"></script>
+    <script>
+        // let app1=new kvue();
+
+        const app=new KVue({
+            data:{
+                test:"test",
+                foo:{
+                    bar:"bar"
+                }
+            }
+        });
+
+        app.$data.test="test1";
+        app.$data.foo.bar="bar1";
+
+    </script>
+</body>
+
+</html>
