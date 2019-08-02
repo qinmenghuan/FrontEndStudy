@@ -45,9 +45,28 @@ class Compile{
 
     compileText(node){
         // console.log("reg:",RegExp.$1);
-        let regText=RegExp.$1;
+        // let regText=RegExp.$1;
         // debugger;
-        node.textContent=this.$vm.$data[regText];
+        // node.textContent=this.$vm.$data[regText];
+
+        this.update(node,this.$vm,RegExp.$1,'text');
+    }
+
+    // 更新函数 通用方法
+    update(node,vm,exp,dir){
+        const updaterFn=this[dir+'Updater'];
+
+        // 初始化
+        updaterFn&&updaterFn(node,vm.$data[exp]);
+
+        // 依赖收集
+        new Watcher(vm,exp,function(value){
+            updaterFn&&updaterFn(node,value);
+        });
+    }
+
+    textUpdater(node,value){
+        node.textContent=value;
     }
 
     isElement(node){

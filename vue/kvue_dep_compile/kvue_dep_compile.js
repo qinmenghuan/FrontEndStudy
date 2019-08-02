@@ -33,8 +33,12 @@ class KVue{
         }
         Object.keys(data).forEach((key)=>{
             this.defineReactive(data,key,data[key]);
+
+            // 代理data中的属性到vue的实例上
+            this.proxyData(key);
         })
     }
+
     defineReactive(obj,key,val){
         this.observe(val);
 
@@ -58,6 +62,17 @@ class KVue{
             }
         });
     }
+
+    proxyData(key){
+        Object.defineProperty(this,key,{
+            get(){
+                return this.$data[key];
+            },
+            set(newVal){
+                this.$data[key]=newVal;
+            }
+        })
+    }
 }
 
 // Dep 用来管理Watcher
@@ -79,11 +94,18 @@ class Dep{
 
 
 class Watcher {
-    constructor(){
+    constructor(vm,key,cb){
+        this.vm=vm;
+        this.key=key;
+        this.cb=cb;
+
         // 将当前watcher实例指定到
         Dep.target=this;
+        this.vm[this.key];
+        Dep.target=null;
     }
     update(){
         console.log("watcher更新了");
+        this.cb.call(this.vm,this.vm[this.key]);
     }
 }
