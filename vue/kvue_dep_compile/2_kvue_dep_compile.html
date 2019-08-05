@@ -12,7 +12,7 @@
 
     <div id="app">
         <p>{{name}}</p>
-        <p k-vue="name"></p>
+        <p k-text="name"></p>
         <p>{{age}}</p>
         <p>{{doubleAge}}</p>
         <input type="text" k-model="name" />
@@ -40,7 +40,12 @@
                 console.log("this:",this);
                 setTimeout(()=>{
                     this.name="我是测试";
-                },2000);
+                },1000);
+            },
+            methods:{
+                changeName(){
+                    this.name="我是事件";
+                }
             }
         });
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #dragDiv {
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dragDiv"></div>
+    <script>
+        window.onload = function () {
+            // 绑定鼠标按下事件
+            let dragDiv = document.querySelector("#dragDiv");
+            // let isDown = false;
+            dragDiv.onmousedown = function (e) {
+
+                
+                var e = e||event;
+
+                // isDown = true;
+                var clickX = e.clientX;
+                var clickY = e.clientY;
+
+                var divLeft = dragDiv.offsetLeft;
+                var divTop = dragDiv.offsetTop;
+
+                // 移动
+                document.onmousemove = function (e) {
+                        var e = e||event;                    
+                        var hori = e.clientX - clickX;
+                        var vert = e.clientY - clickY;
+                        var divLeft1 = divLeft + hori;
+                        var divTop1 = divTop + vert;
+                        dragDiv.style.left=divLeft1+"px";
+                        dragDiv.style.top=divTop1+"px";                    
+                };
+
+                document.onmouseup=function(e){
+                    document.onmousemove=null;
+                }
+            };
+
+            // 绑定鼠标移动事件
+
+            // 绑定鼠标松开事件
+        }
+    </script>
+</body>
+
+</html>
